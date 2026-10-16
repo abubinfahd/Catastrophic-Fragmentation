@@ -1,0 +1,463 @@
+{
+  "notebook": "Paper_Token.ipynb",
+  "notebook_sha256": "564a47feec78130fc254b2a828f03b9e5b1ffd38b66557122646dd030d0b8f04",
+  "models": {
+    "Alibaba (Qwen3 1.7B)": [
+      "Qwen/Qwen3-1.7B"
+    ],
+    "Meta (Llama 4 Scout)": [
+      "unsloth/Llama-4-Scout-17B-16E-Instruct"
+    ],
+    "Google (Gemma 4 E4B-it)": [
+      "google/gemma-4-E4B-it"
+    ],
+    "Microsoft (Phi-4-mini-instruct)": [
+      "microsoft/Phi-4-mini-instruct"
+    ],
+    "Mistral (7B Instruct v0.3)": [
+      "mistralai/Mistral-7B-Instruct-v0.3"
+    ]
+  },
+  "domains": {
+    "OPUS-100 (General)": {
+      "path": "Helsinki-NLP/opus-100",
+      "config": "bn-en",
+      "split": "train"
+    },
+    "Samanantar (Formal Literature)": {
+      "path": "ai4bharat/samanantar",
+      "config": "bn",
+      "split": "train"
+    },
+    "Web & Wiki (Domain 3)": {
+      "path": "sentence-transformers/parallel-sentences-ccmatrix",
+      "config": "en-bn",
+      "split": "train"
+    }
+  },
+  "seed": 42,
+  "runs": [
+    {
+      "sample_size": 10000,
+      "cell_index": 3,
+      "source_sha256": "08d65a91e4a1e4e774af35da3a77aff1f814cd95946383aa33bcbea549d8e52d",
+      "capacities": {
+        "OPUS-100 (General)": 10000,
+        "Samanantar (Formal Literature)": 10000,
+        "Web & Wiki (Domain 3)": 10000
+      },
+      "summary": [
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Avg_EN_Density": 1.56,
+          "Avg_BN_Density": 6.4,
+          "Disparity_Multiplier": 4.72
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Avg_EN_Density": 1.42,
+          "Avg_BN_Density": 5.82,
+          "Disparity_Multiplier": 4.71
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Meta (Llama 4 Scout)",
+          "Avg_EN_Density": 1.39,
+          "Avg_BN_Density": 2.79,
+          "Disparity_Multiplier": 2.25
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Avg_EN_Density": 1.38,
+          "Avg_BN_Density": 2.36,
+          "Disparity_Multiplier": 1.92
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Avg_EN_Density": 1.42,
+          "Avg_BN_Density": 1.81,
+          "Disparity_Multiplier": 1.44
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Avg_EN_Density": 1.45,
+          "Avg_BN_Density": 7.31,
+          "Disparity_Multiplier": 4.87
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Avg_EN_Density": 1.34,
+          "Avg_BN_Density": 6.71,
+          "Disparity_Multiplier": 4.78
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Meta (Llama 4 Scout)",
+          "Avg_EN_Density": 1.32,
+          "Avg_BN_Density": 2.96,
+          "Disparity_Multiplier": 2.1
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Avg_EN_Density": 1.3,
+          "Avg_BN_Density": 2.38,
+          "Disparity_Multiplier": 1.7
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Avg_EN_Density": 1.31,
+          "Avg_BN_Density": 1.74,
+          "Disparity_Multiplier": 1.25
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Avg_EN_Density": 1.42,
+          "Avg_BN_Density": 6.57,
+          "Disparity_Multiplier": 4.33
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Avg_EN_Density": 1.33,
+          "Avg_BN_Density": 6.05,
+          "Disparity_Multiplier": 4.24
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Meta (Llama 4 Scout)",
+          "Avg_EN_Density": 1.3,
+          "Avg_BN_Density": 2.68,
+          "Disparity_Multiplier": 1.86
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Avg_EN_Density": 1.29,
+          "Avg_BN_Density": 2.24,
+          "Disparity_Multiplier": 1.56
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Avg_EN_Density": 1.32,
+          "Avg_BN_Density": 1.67,
+          "Disparity_Multiplier": 1.14
+        }
+      ],
+      "rankings": [
+        {
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Grand_Multiplier": 4.64
+        },
+        {
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Grand_Multiplier": 4.58
+        },
+        {
+          "Model": "Meta (Llama 4 Scout)",
+          "Grand_Multiplier": 2.07
+        },
+        {
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Grand_Multiplier": 1.73
+        },
+        {
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Grand_Multiplier": 1.28
+        }
+      ],
+      "recorded_report": "DATASET STREAM LOAD MANIFEST (ACTUAL CAPACITIES):\n============================================================\n -> Domain: OPUS-100 (General)                  | Actually Loaded & Processed: 10,000 sentence pairs\n -> Domain: Samanantar (Formal Literature)      | Actually Loaded & Processed: 10,000 sentence pairs\n -> Domain: Web & Wiki (Domain 3)               | Actually Loaded & Processed: 10,000 sentence pairs\n============================================================\n\n==========================================================================================\n2026 GRAND PENTAGON LANDSCAPE: EMPIRICAL BENCHMARK\n==========================================================================================\n                        Domain                Model  Avg_EN_Density  Avg_BN_Density  Disparity_Multiplier\n            OPUS-100 (General)    Mistral (7B Instruct v0.3)            1.56            6.40                  4.72\n            OPUS-100 (General) Alibaba (Qwen3 1.7B)            1.42            5.82                  4.71\n            OPUS-100 (General)       Meta (Llama 4 Scout)            1.39            2.79                  2.25\n            OPUS-100 (General)    Microsoft (Phi-4-mini-instruct)            1.38            2.36                  1.92\n            OPUS-100 (General)     Google (Gemma 4 E4B-it)            1.42            1.81                  1.44\nSamanantar (Formal Literature)    Mistral (7B Instruct v0.3)            1.45            7.31                  4.87\nSamanantar (Formal Literature) Alibaba (Qwen3 1.7B)            1.34            6.71                  4.78\nSamanantar (Formal Literature)       Meta (Llama 4 Scout)            1.32            2.96                  2.10\nSamanantar (Formal Literature)    Microsoft (Phi-4-mini-instruct)            1.30            2.38                  1.70\nSamanantar (Formal Literature)     Google (Gemma 4 E4B-it)            1.31            1.74                  1.25\n         Web & Wiki (Domain 3)    Mistral (7B Instruct v0.3)            1.42            6.57                  4.33\n         Web & Wiki (Domain 3) Alibaba (Qwen3 1.7B)            1.33            6.05                  4.24\n         Web & Wiki (Domain 3)       Meta (Llama 4 Scout)            1.30            2.68                  1.86\n         Web & Wiki (Domain 3)    Microsoft (Phi-4-mini-instruct)            1.29            2.24                  1.56\n         Web & Wiki (Domain 3)     Google (Gemma 4 E4B-it)            1.32            1.67                  1.14\n\n------------------------------------------------------------------------------------------\n2026 GRAND MODEL INEFFICIENCY RANKING (Worst to Best):\n------------------------------------------------------------------------------------------\n               Model  Grand_Multiplier\n   Mistral (7B Instruct v0.3)              4.64\nAlibaba (Qwen3 1.7B)              4.58\n      Meta (Llama 4 Scout)              2.07\n   Microsoft (Phi-4-mini-instruct)              1.73\n    Google (Gemma 4 E4B-it)              1.28\n\n[INFO] Dataset safely archived as 'frontier_2026_final_benchmark.csv'.\n"
+    },
+    {
+      "sample_size": 50000,
+      "cell_index": 5,
+      "source_sha256": "8a4251bfc59e94eb204e33eea160b9c55987a6170668e92e796334ea29ff1297",
+      "capacities": {
+        "OPUS-100 (General)": 50000,
+        "Samanantar (Formal Literature)": 50000,
+        "Web & Wiki (Domain 3)": 50000
+      },
+      "summary": [
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Avg_EN_Density": 1.56,
+          "Avg_BN_Density": 6.48,
+          "Disparity_Multiplier": 4.63
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Avg_EN_Density": 1.43,
+          "Avg_BN_Density": 5.91,
+          "Disparity_Multiplier": 4.62
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Meta (Llama 4 Scout)",
+          "Avg_EN_Density": 1.39,
+          "Avg_BN_Density": 2.8,
+          "Disparity_Multiplier": 2.18
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Avg_EN_Density": 1.38,
+          "Avg_BN_Density": 2.35,
+          "Disparity_Multiplier": 1.85
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Avg_EN_Density": 1.43,
+          "Avg_BN_Density": 1.79,
+          "Disparity_Multiplier": 1.38
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Avg_EN_Density": 1.45,
+          "Avg_BN_Density": 7.3,
+          "Disparity_Multiplier": 4.85
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Avg_EN_Density": 1.34,
+          "Avg_BN_Density": 6.68,
+          "Disparity_Multiplier": 4.75
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Meta (Llama 4 Scout)",
+          "Avg_EN_Density": 1.32,
+          "Avg_BN_Density": 2.95,
+          "Disparity_Multiplier": 2.09
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Avg_EN_Density": 1.31,
+          "Avg_BN_Density": 2.38,
+          "Disparity_Multiplier": 1.69
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Avg_EN_Density": 1.31,
+          "Avg_BN_Density": 1.73,
+          "Disparity_Multiplier": 1.24
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Avg_EN_Density": 1.38,
+          "Avg_BN_Density": 6.66,
+          "Disparity_Multiplier": 4.54
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Avg_EN_Density": 1.29,
+          "Avg_BN_Density": 6.19,
+          "Disparity_Multiplier": 4.48
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Meta (Llama 4 Scout)",
+          "Avg_EN_Density": 1.27,
+          "Avg_BN_Density": 2.62,
+          "Disparity_Multiplier": 1.89
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Avg_EN_Density": 1.26,
+          "Avg_BN_Density": 2.16,
+          "Disparity_Multiplier": 1.56
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Avg_EN_Density": 1.29,
+          "Avg_BN_Density": 1.58,
+          "Disparity_Multiplier": 1.12
+        }
+      ],
+      "rankings": [
+        {
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Grand_Multiplier": 4.67
+        },
+        {
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Grand_Multiplier": 4.62
+        },
+        {
+          "Model": "Meta (Llama 4 Scout)",
+          "Grand_Multiplier": 2.05
+        },
+        {
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Grand_Multiplier": 1.7
+        },
+        {
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Grand_Multiplier": 1.25
+        }
+      ],
+      "recorded_report": "DATASET STREAM LOAD MANIFEST (ACTUAL CAPACITIES):\n============================================================\n -> Domain: OPUS-100 (General)                  | Actually Loaded & Processed: 50,000 sentence pairs\n -> Domain: Samanantar (Formal Literature)      | Actually Loaded & Processed: 50,000 sentence pairs\n -> Domain: Web & Wiki (Domain 3)               | Actually Loaded & Processed: 50,000 sentence pairs\n============================================================\n\n==========================================================================================\n2026 GRAND PENTAGON LANDSCAPE: EMPIRICAL BENCHMARK\n==========================================================================================\n                        Domain                Model  Avg_EN_Density  Avg_BN_Density  Disparity_Multiplier\n            OPUS-100 (General)    Mistral (7B Instruct v0.3)            1.56            6.48                  4.63\n            OPUS-100 (General) Alibaba (Qwen3 1.7B)            1.43            5.91                  4.62\n            OPUS-100 (General)       Meta (Llama 4 Scout)            1.39            2.80                  2.18\n            OPUS-100 (General)    Microsoft (Phi-4-mini-instruct)            1.38            2.35                  1.85\n            OPUS-100 (General)     Google (Gemma 4 E4B-it)            1.43            1.79                  1.38\nSamanantar (Formal Literature)    Mistral (7B Instruct v0.3)            1.45            7.30                  4.85\nSamanantar (Formal Literature) Alibaba (Qwen3 1.7B)            1.34            6.68                  4.75\nSamanantar (Formal Literature)       Meta (Llama 4 Scout)            1.32            2.95                  2.09\nSamanantar (Formal Literature)    Microsoft (Phi-4-mini-instruct)            1.31            2.38                  1.69\nSamanantar (Formal Literature)     Google (Gemma 4 E4B-it)            1.31            1.73                  1.24\n         Web & Wiki (Domain 3)    Mistral (7B Instruct v0.3)            1.38            6.66                  4.54\n         Web & Wiki (Domain 3) Alibaba (Qwen3 1.7B)            1.29            6.19                  4.48\n         Web & Wiki (Domain 3)       Meta (Llama 4 Scout)            1.27            2.62                  1.89\n         Web & Wiki (Domain 3)    Microsoft (Phi-4-mini-instruct)            1.26            2.16                  1.56\n         Web & Wiki (Domain 3)     Google (Gemma 4 E4B-it)            1.29            1.58                  1.12\n\n------------------------------------------------------------------------------------------\n2026 GRAND MODEL INEFFICIENCY RANKING (Worst to Best):\n------------------------------------------------------------------------------------------\n               Model  Grand_Multiplier\n   Mistral (7B Instruct v0.3)              4.67\nAlibaba (Qwen3 1.7B)              4.62\n      Meta (Llama 4 Scout)              2.05\n   Microsoft (Phi-4-mini-instruct)              1.70\n    Google (Gemma 4 E4B-it)              1.25\n\n[INFO] Dataset safely archived as 'frontier_2026_final_benchmark.csv'.\n"
+    },
+    {
+      "sample_size": 100000,
+      "cell_index": 7,
+      "source_sha256": "14536c18c675f79d2a54f9d424fa6691ba5f94c9e86c0f35fc2ac4adad4eabfe",
+      "capacities": {
+        "OPUS-100 (General)": 100000,
+        "Samanantar (Formal Literature)": 100000,
+        "Web & Wiki (Domain 3)": 100000
+      },
+      "summary": [
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Avg_EN_Density": 1.57,
+          "Avg_BN_Density": 6.5,
+          "Disparity_Multiplier": 4.62
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Avg_EN_Density": 1.43,
+          "Avg_BN_Density": 5.93,
+          "Disparity_Multiplier": 4.61
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Meta (Llama 4 Scout)",
+          "Avg_EN_Density": 1.4,
+          "Avg_BN_Density": 2.8,
+          "Disparity_Multiplier": 2.18
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Avg_EN_Density": 1.38,
+          "Avg_BN_Density": 2.35,
+          "Disparity_Multiplier": 1.84
+        },
+        {
+          "Domain": "OPUS-100 (General)",
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Avg_EN_Density": 1.43,
+          "Avg_BN_Density": 1.79,
+          "Disparity_Multiplier": 1.37
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Avg_EN_Density": 1.45,
+          "Avg_BN_Density": 7.29,
+          "Disparity_Multiplier": 4.85
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Avg_EN_Density": 1.34,
+          "Avg_BN_Density": 6.68,
+          "Disparity_Multiplier": 4.75
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Meta (Llama 4 Scout)",
+          "Avg_EN_Density": 1.32,
+          "Avg_BN_Density": 2.95,
+          "Disparity_Multiplier": 2.09
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Avg_EN_Density": 1.31,
+          "Avg_BN_Density": 2.37,
+          "Disparity_Multiplier": 1.69
+        },
+        {
+          "Domain": "Samanantar (Formal Literature)",
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Avg_EN_Density": 1.31,
+          "Avg_BN_Density": 1.73,
+          "Disparity_Multiplier": 1.24
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Avg_EN_Density": 1.38,
+          "Avg_BN_Density": 6.72,
+          "Disparity_Multiplier": 4.59
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Avg_EN_Density": 1.29,
+          "Avg_BN_Density": 6.26,
+          "Disparity_Multiplier": 4.54
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Meta (Llama 4 Scout)",
+          "Avg_EN_Density": 1.26,
+          "Avg_BN_Density": 2.62,
+          "Disparity_Multiplier": 1.9
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Avg_EN_Density": 1.26,
+          "Avg_BN_Density": 2.16,
+          "Disparity_Multiplier": 1.57
+        },
+        {
+          "Domain": "Web & Wiki (Domain 3)",
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Avg_EN_Density": 1.29,
+          "Avg_BN_Density": 1.58,
+          "Disparity_Multiplier": 1.12
+        }
+      ],
+      "rankings": [
+        {
+          "Model": "Mistral (7B Instruct v0.3)",
+          "Grand_Multiplier": 4.69
+        },
+        {
+          "Model": "Alibaba (Qwen3 1.7B)",
+          "Grand_Multiplier": 4.64
+        },
+        {
+          "Model": "Meta (Llama 4 Scout)",
+          "Grand_Multiplier": 2.06
+        },
+        {
+          "Model": "Microsoft (Phi-4-mini-instruct)",
+          "Grand_Multiplier": 1.7
+        },
+        {
+          "Model": "Google (Gemma 4 E4B-it)",
+          "Grand_Multiplier": 1.24
+        }
+      ],
+      "recorded_report": "DATASET STREAM LOAD MANIFEST (ACTUAL CAPACITIES):\n============================================================\n -> Domain: OPUS-100 (General)                  | Actually Loaded & Processed: 100,000 sentence pairs\n -> Domain: Samanantar (Formal Literature)      | Actually Loaded & Processed: 100,000 sentence pairs\n -> Domain: Web & Wiki (Domain 3)               | Actually Loaded & Processed: 100,000 sentence pairs\n============================================================\n\n==========================================================================================\n2026 GRAND PENTAGON LANDSCAPE: EMPIRICAL BENCHMARK\n==========================================================================================\n                        Domain                Model  Avg_EN_Density  Avg_BN_Density  Disparity_Multiplier\n            OPUS-100 (General)    Mistral (7B Instruct v0.3)            1.57            6.50                  4.62\n            OPUS-100 (General) Alibaba (Qwen3 1.7B)            1.43            5.93                  4.61\n            OPUS-100 (General)       Meta (Llama 4 Scout)            1.40            2.80                  2.18\n            OPUS-100 (General)    Microsoft (Phi-4-mini-instruct)            1.38            2.35                  1.84\n            OPUS-100 (General)     Google (Gemma 4 E4B-it)            1.43            1.79                  1.37\nSamanantar (Formal Literature)    Mistral (7B Instruct v0.3)            1.45            7.29                  4.85\nSamanantar (Formal Literature) Alibaba (Qwen3 1.7B)            1.34            6.68                  4.75\nSamanantar (Formal Literature)       Meta (Llama 4 Scout)            1.32            2.95                  2.09\nSamanantar (Formal Literature)    Microsoft (Phi-4-mini-instruct)            1.31            2.37                  1.69\nSamanantar (Formal Literature)     Google (Gemma 4 E4B-it)            1.31            1.73                  1.24\n         Web & Wiki (Domain 3)    Mistral (7B Instruct v0.3)            1.38            6.72                  4.59\n         Web & Wiki (Domain 3) Alibaba (Qwen3 1.7B)            1.29            6.26                  4.54\n         Web & Wiki (Domain 3)       Meta (Llama 4 Scout)            1.26            2.62                  1.90\n         Web & Wiki (Domain 3)    Microsoft (Phi-4-mini-instruct)            1.26            2.16                  1.57\n         Web & Wiki (Domain 3)     Google (Gemma 4 E4B-it)            1.29            1.58                  1.12\n\n------------------------------------------------------------------------------------------\n2026 GRAND MODEL INEFFICIENCY RANKING (Worst to Best):\n------------------------------------------------------------------------------------------\n               Model  Grand_Multiplier\n   Mistral (7B Instruct v0.3)              4.69\nAlibaba (Qwen3 1.7B)              4.64\n      Meta (Llama 4 Scout)              2.06\n   Microsoft (Phi-4-mini-instruct)              1.70\n    Google (Gemma 4 E4B-it)              1.24\n\n[INFO] Dataset safely archived as 'frontier_2026_final_benchmark.csv'.\n"
+    }
+  ],
+  "provenance": "Recorded notebook outputs; original Hub revisions, environment versions, and raw pairs were not saved. Display labels and plot labels corrected to the author-confirmed repository identities on 11 October 2026; recorded numerical results were preserved.",
+  "original_notebook_sha256": "5a79edf7000fc6dfc17c2ab6c7d3cc2f97a05b2a25e3409d0a53087c36ec3f8e"
+}

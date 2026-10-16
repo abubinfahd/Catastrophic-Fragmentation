@@ -1,0 +1,45 @@
+{
+  "seed": 42,
+  "sample_sizes": [
+    10000,
+    50000,
+    100000
+  ],
+  "trust_remote_code": false,
+  "metric_policy": "notebook",
+  "require_full_samples": true,
+  "models": {
+    "Alibaba (Qwen3 1.7B)": [
+      "Qwen/Qwen3-1.7B"
+    ],
+    "Meta (Llama 4 Scout)": [
+      "unsloth/Llama-4-Scout-17B-16E-Instruct"
+    ],
+    "Google (Gemma 4 E4B-it)": [
+      "google/gemma-4-E4B-it"
+    ],
+    "Microsoft (Phi-4-mini-instruct)": [
+      "microsoft/Phi-4-mini-instruct"
+    ],
+    "Mistral (7B Instruct v0.3)": [
+      "mistralai/Mistral-7B-Instruct-v0.3"
+    ]
+  },
+  "domains": {
+    "OPUS-100 (General)": {
+      "path": "Helsinki-NLP/opus-100",
+      "config": "bn-en",
+      "split": "train"
+    },
+    "Samanantar (Formal Literature)": {
+      "path": "ai4bharat/samanantar",
+      "config": "bn",
+      "split": "train"
+    },
+    "Web & Wiki (Domain 3)": {
+      "path": "sentence-transformers/parallel-sentences-ccmatrix",
+      "config": "en-bn",
+      "split": "train"
+    }
+  }
+}

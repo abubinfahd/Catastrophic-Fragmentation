@@ -1,0 +1,10 @@
+datasets
+transformers
+huggingface-hub
+numpy
+pandas
+matplotlib
+sentencepiece
+protobuf
+tiktoken
+python-dotenv

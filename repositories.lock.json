@@ -1,0 +1,48 @@
+{
+  "models": {
+    "Qwen/Qwen3-1.7B": {
+      "repository": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "gated": false
+    },
+    "unsloth/Llama-4-Scout-17B-16E-Instruct": {
+      "repository": "unsloth/Llama-4-Scout-17B-16E-Instruct",
+      "revision": "afd8e498c87bda51c7ea8ec68ea2f7c066e6340b",
+      "gated": false
+    },
+    "google/gemma-4-E4B-it": {
+      "repository": "google/gemma-4-E4B-it",
+      "revision": "ee0ef6023621cff504d758262d4e04895a5af4a2",
+      "gated": false
+    },
+    "microsoft/Phi-4-mini-instruct": {
+      "repository": "microsoft/Phi-4-mini-instruct",
+      "revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+      "gated": false
+    },
+    "mistralai/Mistral-7B-Instruct-v0.3": {
+      "repository": "mistralai/Mistral-7B-Instruct-v0.3",
+      "revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "gated": false
+    }
+  },
+  "datasets": {
+    "Helsinki-NLP/opus-100": {
+      "repository": "Helsinki-NLP/opus-100",
+      "revision": "805090dc28bf78897da9641cdf08b61287580df9",
+      "gated": false
+    },
+    "ai4bharat/samanantar": {
+      "repository": "ai4bharat/samanantar",
+      "revision": "ead34c5b22a0354d350e7dfdd6aece7df5a48f37",
+      "gated": false
+    },
+    "sentence-transformers/parallel-sentences-ccmatrix": {
+      "repository": "sentence-transformers/parallel-sentences-ccmatrix",
+      "revision": "0c2ecfe22787e119991dbc482b776dc9aa25aa9f",
+      "gated": false
+    }
+  },
+  "created_at": "2026-10-07T01:25:58.675244+00:00",
+  "provenance": "Current Hub commits for future reruns; historical notebook commits were not recorded."
+}
