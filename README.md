@@ -1,4 +1,4 @@
-# Catastrophic Fragmentation: A Large-Scale Cross-Domain Benchmark of Tokenization Inefficiency in Frontier Large Language Models: A Case Study on Bengali
+# Catastrophic Fragmentation: A Large-Scale Cross-Domain Benchmark of Bengali Tokenization Inefficiency in Frontier Large Language Models
 
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-orange)](https://huggingface.co/)
@@ -7,7 +7,7 @@
 
 This repository provides the official implementation, deterministic data pipeline, statistical hypothesis testing suite, and reproduction artifacts for the paper:
 
-> **"Catastrophic Fragmentation: A Large-Scale Cross-Domain Benchmark of Tokenization Inefficiency in Frontier Large Language Models: A Case Study on Bengali"**  
+> **"Catastrophic Fragmentation: A Large-Scale Cross-Domain Benchmark of Bengali Tokenization Inefficiency in Frontier Large Language Models"**  
 > *Neural Computing and Applications* (Springer Nature), October 2026.
 
 ---
@@ -151,7 +151,6 @@ This will:
 | | Meta Llama 4 Scout | 1.26 | 2.62 | 0.0015 | **1.90** [1.897, 1.903] |
 | | Microsoft Phi-4-mini | 1.26 | 2.16 | 0.0012 | **1.57** [1.566, 1.570] |
 | | Google Gemma 4 E4B-it | 1.29 | 1.58 | 0.0009 | **1.12** [1.120, 1.124] |
-```
 
 ---
 
