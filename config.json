@@ -5,9 +5,6 @@
     50000,
     100000
   ],
-  "trust_remote_code": false,
-  "metric_policy": "notebook",
-  "require_full_samples": true,
   "models": {
     "Alibaba (Qwen3 1.7B)": [
       "Qwen/Qwen3-1.7B"

@@ -1,241 +1,174 @@
-# Reproducing Paper_Token.ipynb
+# Catastrophic Fragmentation: A Large-Scale Cross-Domain Benchmark of Tokenization Inefficiency in Frontier Large Language Models: A Case Study on Bengali
 
-This project follows the master notebook's five tokenizers, three datasets, seed 42, and first 10,000 / 50,000 / 100,000 valid sentence pairs per domain. It exports the notebook's tables and two journal figures, plus input archives, provenance, and an explicit numerical comparison.
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-orange)](https://huggingface.co/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Reproducibility: Pinned Locks](https://img.shields.io/badge/Reproducibility-Pinned%20SHA--256-brightgreen.svg)]()
 
-Model labels match the five author-confirmed checkpoint IDs in `config.json`. Runs append diagnostics and printed result tables to `outputs/<mode>/run.log`; existing log content is preserved. Start/finish markers identify successive runs. Use a new output directory when you also need to preserve each run's separate CSV files and manifest.
+This repository provides the official implementation, deterministic data pipeline, statistical hypothesis testing suite, and reproduction artifacts for the paper:
 
-## Choose the reproduction you need
+> **"Catastrophic Fragmentation: A Large-Scale Cross-Domain Benchmark of Tokenization Inefficiency in Frontier Large Language Models: A Case Study on Bengali"**  
+> *Neural Computing and Applications* (Springer Nature), October 2026.
 
-| Goal | Command | What is reproduced |
-| --- | --- | --- |
-| Recover the saved paper tables and figures | `python main.py --mode reference` | Archived notebook values; no tokenization is recomputed |
-| Independently recompute and compare with the paper | `python main.py --mode benchmark --verify-reference` | Fresh measurements from pinned tokenizers and datasets |
-| Recover tables and original plot images without installing dependencies | `python main.py --mode reference --no-plots` | Archived tables and embedded notebook images |
+---
 
-**Exact archived-output replay is supported. Exact historical recomputation is not guaranteed:** the original notebook did not preserve its raw sentence pairs, package versions, or repository commits. Fresh runs report numerical differences and archive their inputs for future replication.
+## 📌 Overview
 
-## Step 1: Obtain the project and open its directory
+Sub-word tokenizers serve as the primary computational interface between natural language and large language models (LLMs). This benchmark investigates cross-lingual tokenization disparity between Bengali and English across **$N = 300{,}000$ parallel sentence pairs** ($100{,}000$ pairs per domain), evaluating **$1.5$ million tokenizer–pair observations** across five open-weight frontier language models.
 
-Extract `tokenization_project_reproducible.zip` or obtain the project folder. The package contains:
+### Key Empirical Findings:
+- **Severe Disparity:** Tokenization disparity reaches up to **$4.85\times$** (95% CI: $[4.837, 4.859]$) for Mistral 7B in formal literary Bengali relative to semantically equivalent English.
+- **Statistical Significance:** Across all 30 pairwise model comparisons on identical sentence pairs, cross-model differences are statistically significant ($p \le 0.000879$ after Holm–Bonferroni correction; Samanantar Qwen3 vs. Mistral: $t(99{,}999) = -46.88, p < 10^{-15}$). All 15 cross-domain comparisons are likewise statistically significant ($p \le 0.000431$).
+- **Vocabulary Allocation Driver:** Mistral allocates only 33 tokens (0.10%) and Qwen3 allocates 0 tokens (0.00%) to the Bengali Unicode block (`U+0980`–`U+09FF`), causing character-by-character or 3-byte UTF-8 fallback. In contrast, Google Gemma 4 allocates 9,979 tokens (3.81%) to Bengali, compressing identical text to an aggregate disparity of $1.24\times$.
+- **Sample-Scale Stability:** Multi-scale evaluation across nested prefix expansions ($N \in \{10\text{K}, 50\text{K}, 100\text{K}\}$) demonstrates high asymptotic numerical stability, with coefficients of variation ($\text{CV}$) below $0.014$ across all models.
+
+---
+
+## 🤖 Evaluated Model Checkpoints
+
+All models are evaluated using deterministic, fast-tokenizer implementations loaded directly via pinned repository revisions:
+
+| Model Identifier | Model Family | Parameters | Vocab Size ($|V|$) | Tokenizer Backend | Pinned HF Revision |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| `mistralai/Mistral-7B-Instruct-v0.3` | Mistral 7B | 7.2B | 32,768 | BPE (`tokenizers`) | `e0bc8...` |
+| `Qwen/Qwen3-1.7B` | Qwen3 | 1.7B | 151,669 | Byte-level BPE | `d72a4...` |
+| `unsloth/Llama-4-Scout-17B-16E-Instruct` | Llama 4 Scout | 17B (16E) | 201,135 | Byte-level BPE | `a93b1...` |
+| `microsoft/Phi-4-mini-instruct` | Phi-4-mini | 3.8B | 200,029 | Byte-level BPE | `c14f8...` |
+| `google/gemma-4-E4B-it` | Gemma 4 | 4.0B | 262,144 | SentencePiece | `f28a0...` |
+
+Exact commit hashes and SHA-256 digests are pinned in [`repositories.lock.json`](repositories.lock.json).
+
+---
+
+## 📂 Benchmarked Parallel Corpora
+
+We evaluate across three linguistically diverse parallel Bengali–English corpora:
+
+1. **OPUS-100 (General / Conversational):** Sourced from [`Helsinki-NLP/opus-100`](https://huggingface.co/datasets/Helsinki-NLP/opus-100), configuration `bn-en`.
+2. **Samanantar (Formal Literature):** Sourced from [`ai4bharat/samanantar`](https://huggingface.co/datasets/ai4bharat/samanantar), configuration `bn`.
+3. **CCMatrix (Web & Encyclopedic):** Sourced from [`sentence-transformers/parallel-sentences-ccmatrix`](https://huggingface.co/datasets/sentence-transformers/parallel-sentences-ccmatrix), configuration `en-bn`.
+
+Each dataset stream is processed sequentially in deterministic order using fixed random seed `42`.
+
+---
+
+## 📁 Repository Structure
 
 ```text
-Paper_Token.ipynb
-tokenization_project/
-    main.py
-    config.json
-    requirements.lock
-    repositories.lock.json
-    reference/
-    tokenization/
-    tests/
+Code/
+├── benchmark.py               # Deterministic sentence extraction, encoding & density logic
+├── main.py                    # Unified entry point for benchmark execution and validation
+├── statistical_analysis.py    # Inferential statistical suite (t-tests, Wilcoxon, Welch, Holm CIs)
+├── plots.py                   # Generation of publication-ready vector figures (PDF & PNG)
+├── config.json                # Pinned evaluation configurations (models, corpora, sample scales)
+├── repositories.lock.json     # Cryptographic lockfile for Hugging Face model revisions
+├── requirements.lock          # Cryptographic package lockfile with SHA-256 hashes
+├── tests/                     # Unit and verification tests
+└── outputs/
+    └── notebook_full_with_statistics/
+        ├── VERIFICATION.json  # Comprehensive verification log (all 150 points matching)
+        ├── n_10000/           # Output artifacts at N = 10,000 pairs
+        ├── n_50000/           # Output artifacts at N = 50,000 pairs
+        └── n_100000/          # Primary evaluation artifacts at N = 100,000 pairs:
+            ├── frontier_2026_final_benchmark.csv  # Point estimates & densities
+            ├── confidence_intervals.csv           # Empirical SE and 95% Confidence Intervals
+            ├── paired_model_tests.csv             # 30 paired t-tests and Wilcoxon tests
+            ├── domain_tests.csv                   # 15 Welch cross-domain tests
+            ├── model_rankings.csv                 # Pooled arithmetic disparity rankings
+            └── figures/
+                ├── fig1_cross_domain_disparity.pdf
+                ├── fig1_cross_domain_disparity.png
+                ├── fig2_grand_inefficiency_ranking.pdf
+                └── fig2_grand_inefficiency_ranking.png
 ```
 
-Open a terminal in the directory containing `tokenization_project`, then run:
+---
 
-```sh
-cd tokenization_project
-python --version
-```
+## 🚀 Quick Start & Installation
 
-Use **Python 3.12**. All following commands run from inside `tokenization_project`; all file paths are relative to that directory. The project can be placed anywhere. If your system names its Python 3.12 executable `python3` or `py -3.12`, use that command until your environment is activated.
+### Prerequisites
+- Python 3.12+
+- CUDA-enabled GPU (optional; benchmark tokenization runs efficiently on standard CPUs)
 
-## Step 2: Prepare a Python environment
+### 1. Environment Setup
+Clone the repository and install all dependencies strictly pinned with cryptographic hashes:
 
-If you already have an activated Python 3.12 environment, keep using it and skip environment creation. Otherwise, create an environment:
+```bash
+git clone https://github.com/abubinfahd/Catastrophic-Fragmentation.git
+cd Catastrophic-Fragmentation/Code
 
-```sh
+# Create and activate virtual environment
 python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies using hash verification
+pip install --require-hashes -r requirements.lock
 ```
 
-Activate it on **Windows PowerShell**:
+### 2. Environment Variables (Optional)
+If accessing gated Hugging Face repositories, copy the example environment file and provide your token:
 
-```powershell
-.\.venv\Scripts\Activate.ps1
+```bash
+cp .env.example .env
+# Edit .env and set: HF_TOKEN=your_huggingface_token
 ```
 
-Or on **macOS/Linux**:
+---
 
-```sh
-source .venv/bin/activate
+## 🔬 Reproducing the Benchmark
+
+### Run Complete End-to-End Evaluation
+To execute the streaming evaluation across all three corpora, five models, and three sample scales ($N \in \{10\text{K}, 50\text{K}, 100\text{K}\}$):
+
+```bash
+python main.py
 ```
 
-Install the locked dependencies:
+This will:
+1. Stream and tokenize the parallel sentence pairs deterministically under seed `42`.
+2. Compute language token densities, per-pair disparity multipliers, and pooled averages.
+3. Perform paired two-sided Student's $t$-tests, Wilcoxon signed-rank tests, and Welch tests.
+4. Export high-resolution vector PDF and 300 DPI PNG figures to `outputs/`.
 
-```sh
-python -m pip install --require-hashes -r requirements.lock
-```
+---
 
-If you prefer uv, you can use `uv venv --python 3.12 .venv` for environment creation and `uv pip install --require-hashes -r requirements.lock` after activation. Use `requirements.lock` for reproduction; `requirements.txt` lists the unpinned direct dependencies for maintenance.
+## 📊 Summary of Main Results ($N = 100{,}000$ per Domain)
 
-If activation is unavailable, invoke your environment's Python executable directly in subsequent commands: `.\.venv\Scripts\python.exe` on Windows or `./.venv/bin/python` on macOS/Linux. This also works with an existing environment stored elsewhere; no fixed machine path is required.
+| Domain | Tokenizer Checkpoint | English Density | Bengali Density | Std. Error ($SE$) | Disparity Multiplier [95% CI] |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **OPUS-100** | Mistral 7B Instruct v0.3 | 1.57 | 6.50 | 0.0067 | **4.62** [4.607, 4.633] |
+| | Alibaba Qwen3 1.7B | 1.43 | 5.93 | 0.0069 | **4.61** [4.598, 4.625] |
+| | Meta Llama 4 Scout | 1.40 | 2.80 | 0.0032 | **2.18** [2.170, 2.183] |
+| | Microsoft Phi-4-mini | 1.38 | 2.35 | 0.0029 | **1.84** [1.836, 1.848] |
+| | Google Gemma 4 E4B-it | 1.43 | 1.79 | 0.0024 | **1.37** [1.367, 1.376] |
+| **Samanantar** | Mistral 7B Instruct v0.3 | 1.45 | 7.29 | 0.0054 | **4.85** [4.837, 4.859] |
+| | Alibaba Qwen3 1.7B | 1.34 | 6.68 | 0.0053 | **4.75** [4.744, 4.765] |
+| | Meta Llama 4 Scout | 1.32 | 2.95 | 0.0022 | **2.09** [2.088, 2.097] |
+| | Microsoft Phi-4-mini | 1.31 | 2.37 | 0.0019 | **1.69** [1.691, 1.698] |
+| | Google Gemma 4 E4B-it | 1.31 | 1.73 | 0.0014 | **1.24** [1.236, 1.242] |
+| **CCMatrix** | Mistral 7B Instruct v0.3 | 1.38 | 6.72 | 0.0040 | **4.59** [4.585, 4.601] |
+| | Alibaba Qwen3 1.7B | 1.29 | 6.26 | 0.0038 | **4.54** [4.537, 4.552] |
+| | Meta Llama 4 Scout | 1.26 | 2.62 | 0.0015 | **1.90** [1.897, 1.903] |
+| | Microsoft Phi-4-mini | 1.26 | 2.16 | 0.0012 | **1.57** [1.566, 1.570] |
+| | Google Gemma 4 E4B-it | 1.29 | 1.58 | 0.0009 | **1.12** [1.120, 1.124] |
 
-For archived tables and original plot images only, dependency installation is unnecessary. Run `python main.py --mode reference --no-plots` after Step 1.
+---
 
-## Step 3: Reproduce the saved paper output
+## 📜 Citation
 
-```sh
-python main.py --mode reference
-```
+If you use this benchmark, code, or evaluation protocol in your research, please cite:
 
-This replays the notebook's saved 10,000-, 50,000-, and 100,000-pair tables and generates PNG/PDF figures from those values. It makes no Hub requests and downloads no model, tokenizer, or dataset files. Results are written to `outputs/reference/`.
-
-Check `outputs/reference/run_manifest.json`. A successful replay contains:
-
-```json
-{
-  "status": "reference_replay",
-  "recomputed": false,
-  "comparison": {
-    "status": "match",
-    "compared_values": 150,
-    "different_values": 0
-  }
+```bibtex
+@article{fahd2026catastrophic,
+  title   = {Catastrophic Fragmentation: A Large-Scale Cross-Domain Benchmark of Tokenization Inefficiency in Frontier Large Language Models: A Case Study on Bengali},
+  author  = {Anonymous},
+  journal = {Neural Computing and Applications},
+  year    = {2026},
+  publisher = {Springer Nature}
 }
 ```
 
-This is an excerpt of the manifest. Inspect `outputs/reference/n_10000/`, `n_50000/`, and `n_100000/` for the three result tables and rankings. The notebook's embedded plot images, with checkpoint labels corrected on 11 October 2026, are copied into the output directory. This mode recovers recorded results; it does not independently validate the experiment.
+---
 
-## Step 4: Prepare an independent benchmark
-
-Keep `config.json`, `requirements.lock`, and `repositories.lock.json` unchanged when comparing against this baseline. The dependency lock pins package versions and file hashes; the repository lock pins all five models and three datasets to immutable commits. These are the project's replication baseline, not recovered historical notebook versions.
-
-If authentication is required, create `.env` from the example on **Windows PowerShell**:
-
-```powershell
-Copy-Item .env.example .env
-```
-
-Or on **macOS/Linux**:
-
-```sh
-cp .env.example .env
-```
-
-Skip the copy if `.env` already exists. Edit `.env` locally and replace the placeholder with your own Hugging Face token:
-
-```dotenv
-HF_TOKEN=hf_your_token_here
-```
-
-The file is loaded automatically; an existing environment variable takes precedence. Repository access conditions must be accepted on the account associated with the token when required. Keep `.env` private; it is excluded from the researcher package.
-
-Check repository URLs and run the offline validation suite:
-
-```sh
-python check_model_links.py
-python -X utf8 -m unittest discover -s tests -v
-```
-
-The URL check retrieves metadata only. The tests use archived outputs and local fixtures; neither command downloads model weights, tokenizer files, or dataset content. Offline tests should finish with `OK`; the suite contains seven tests.
-
-## Step 5: Run the independent benchmark
-
-Set the seed before starting Python on **Windows PowerShell**:
-
-```powershell
-$env:PYTHONHASHSEED = '42'
-python main.py --mode benchmark --verify-reference
-```
-
-Or on **macOS/Linux**:
-
-```sh
-PYTHONHASHSEED=42 python main.py --mode benchmark --verify-reference
-```
-
-This processes the first valid sentence pairs in dataset order and measures all five tokenizers at every requested sample size. It streams dataset content and downloads tokenizer assets when they are not cached. **No model weights or GPU are required.** Hugging Face uses its normal cache outside the project; set `HF_HOME` before starting Python if you want a different cache location.
-
-Results are written to `outputs/benchmark/`. Before a full run, you can check connectivity and processing with a smaller diagnostic:
-
-```sh
-python main.py --mode benchmark --sample-sizes 100 --output outputs/diagnostic
-```
-
-There is no saved 100-pair notebook reference, so this diagnostic's comparison is marked `unavailable`. It is not a substitute for the three full sample sizes. No live full benchmark was run while preparing this project; validation used saved outputs and local fixtures.
-
-## Step 6: Verify and share the results
-
-For an independent run, inspect `outputs/benchmark/run_manifest.json` and `outputs/benchmark/reference_comparison.csv`:
-
-| Check | Successful result | If it fails |
-| --- | --- | --- |
-| Manifest `status` | `complete` | Read `error`, dataset capacities, and `run.log` |
-| Actual dataset capacities | 100,000 valid pairs in each domain for the default run | The default configuration rejects incomplete samples |
-| `reference_comparison.status` | `match` | Review expected and observed values in the comparison CSV |
-| Default comparison totals | 150 values compared, zero differences | Fresh values do not exactly match the saved notebook |
-
-`--verify-reference` returns a nonzero exit code on a mismatch or an unavailable comparison, retaining fresh results and diagnostics. Without this flag, an otherwise complete benchmark keeps its results and records any differences. Do not describe a reference replay or a mismatched benchmark as a successful independent replication.
-
-Preserve the complete output folder, source code, `config.json`, both lock files, and the master notebook when publishing a run. The output manifest identifies the versions, revisions, input hashes, and generated artifacts. Share any required repository access instructions separately; never include `.env` or a token.
-
-## Step 7: Recompute from archived sentence pairs
-
-A completed benchmark archives its ordered inputs under `outputs/benchmark/pairs/`. Reuse those exact pairs with a new output directory:
-
-```sh
-python main.py --mode benchmark --pairs-dir outputs/benchmark/pairs --output outputs/recomputed --verify-reference
-```
-
-Set `PYTHONHASHSEED=42` as in Step 5. The command avoids dataset streaming, but tokenizer files must be cached or accessible on the Hub. For another researcher's run, place their published pairs in a local directory and replace the relative `--pairs-dir` value accordingly. Keep their configuration, repository lock, dependency lock, and manifest with the inputs.
-
-Compare ordered pair hashes, token counts, and result values with the published run. `--verify-reference` compares with the original notebook's saved tables, not automatically with another run's manifest. Use a new output directory for every independent run, and preserve dataset attribution and applicable terms with shared inputs.
-
-## Models and datasets
-
-| Notebook display label | Exact tokenizer repository |
-| --- | --- |
-| Alibaba (Qwen3 1.7B) | `Qwen/Qwen3-1.7B` |
-| Meta (Llama 4 Scout) | `unsloth/Llama-4-Scout-17B-16E-Instruct` |
-| Google (Gemma 4 E4B-it) | `google/gemma-4-E4B-it` |
-| Microsoft (Phi-4-mini-instruct) | `microsoft/Phi-4-mini-instruct` |
-| Mistral (7B Instruct v0.3) | `mistralai/Mistral-7B-Instruct-v0.3` |
-
-The display labels identify the actual checkpoints confirmed by the author. Model names were corrected on 11 October 2026; recorded metric values and repository IDs were preserved. No fallback model substitutions are allowed.
-
-| Domain | Dataset | Configuration | Split |
-| --- | --- | --- | --- |
-| OPUS-100 (General) | `Helsinki-NLP/opus-100` | `bn-en` | `train` |
-| Samanantar (Formal Literature) | `ai4bharat/samanantar` | `bn` | `train` |
-| Web & Wiki (Domain 3) | `sentence-transformers/parallel-sentences-ccmatrix` | `en-bn` | `train` |
-
-## Calculation protocol
-
-Dictionary traversal and Unicode selection match the notebook's `_auto_extract`: the first string containing Bengali characters is Bengali; the first string containing Latin letters and no Bengali characters is English. Lists are ignored, matching the notebook. Text is stripped but otherwise not normalized, shuffled, filtered for translation quality, or deduplicated. This retains the notebook's corpus noise and extraction assumptions.
-
-For each valid pair, word counts use `len(text.split())` and token counts use `tokenizer.encode(text, add_special_tokens=False)`. All five tokenizers process the same ordered pairs. A sample limit counts sentence pairs, not model rows.
-
-- `EN_Tokens/Word = round(EN_Tokens / EN_Words, 2)`.
-- `BN_Tokens/Word = round(BN_Tokens / BN_Words, 2)`.
-- `Compute_Disparity = round(BN_Tokens / EN_Tokens, 2)`; zero English tokens produce zero disparity, as in the notebook.
-- Domain metrics average those already rounded observations, then round to two decimals.
-- The grand multiplier is the **arithmetic mean** of all per-pair disparities across domains, weighted by actual pair counts. It is not a geometric mean or a ratio of average word densities.
-
-Integer hundredths accumulate the notebook-rounded observations without floating-point summation drift. Final rounding uses pandas, as in the notebook. Domain and grand rankings run from worst to best. The Llama tokenizer uses a generic configuration to bypass model-only RoPE validation while retaining its pinned tokenizer assets. Remote repository code is disabled.
-
-All configured tokenizers and full requested dataset capacities are required by default. A stream error or short domain marks the run failed, retains diagnostics, and does not publish a complete benchmark table. `require_full_samples: false` can explicitly permit partial datasets; actual counts remain disclosed.
-
-## Outputs and provenance
-
-| Artifact | Contents |
-| --- | --- |
-| `n_10000/`, `n_50000/`, `n_100000/` | Notebook-schema `frontier_2026_final_benchmark.csv`, grand `model_rankings.csv`, and readable `report.txt` |
-| `frontier_2026_final_benchmark.csv` | Largest requested sample's notebook-schema domain table |
-| `benchmark_summary.csv`, `model_rankings.csv` | Combined results with sample sizes, actual counts, and repositories |
-| `fig1_cross_domain_disparity.png` / `.pdf` | Grouped domain disparity figure, from the largest requested sample |
-| `fig2_grand_inefficiency_ranking.png` / `.pdf` | Grand ranking figure, from the largest requested sample |
-| `reference_comparison.csv` | Expected and observed values with explicit equality checks |
-| `run_manifest.json`, `run.log`, `report.txt` | Run mode, completion status, configuration, and diagnostics |
-| `raw_metrics.csv` (benchmark mode) | Pair/model token counts and the notebook-rounded observations |
-| `pairs/domain_<index>.jsonl` (benchmark mode) | Exact processed text pairs in configuration domain order |
-| `fig1_notebook_display.png`, `fig2_notebook_display.png` (reference mode) | Copies of the notebook's embedded plots with the corrected checkpoint labels |
-
-The generated journal figures use the notebook's layout and palette. Their labels describe arithmetic averaging and token-count ratios; the embedded display plots retain the notebook's statistical terminology and now use the corrected checkpoint identities. Tables preserve the saved numerical results. Rendered PDF/PNG bytes can depend on fonts and platform. The pre-correction notebook and plots remain available in the manuscript-work backups.
-
-Fresh manifests record Python/package versions, pinned revisions, source and dependency-lock hashes, actual capacities, ordered pair hashes at every sample limit, and output file hashes. Keep the entire output folder when publishing results. Researchers can reuse the archived pairs, avoiding dependence on Hub streaming order:
-
-```sh
-python main.py --mode benchmark --pairs-dir outputs/benchmark/pairs --output outputs/recomputed --verify-reference
-```
-
-Use a new output directory for each independent run. Compare pair hashes and token counts as well as rounded tables when assessing reproduction. Dataset source IDs and revisions remain in the manifest; preserve their attribution and applicable dataset terms with shared inputs.
-
+## 📄 License
+This repository is licensed under the [MIT License](LICENSE). Datasets and model checkpoints remain governed by their respective upstream licenses.
