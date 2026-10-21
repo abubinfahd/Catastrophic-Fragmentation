@@ -151,21 +151,6 @@ This will:
 | | Meta Llama 4 Scout | 1.26 | 2.62 | 0.0015 | **1.90** [1.897, 1.903] |
 | | Microsoft Phi-4-mini | 1.26 | 2.16 | 0.0012 | **1.57** [1.566, 1.570] |
 | | Google Gemma 4 E4B-it | 1.29 | 1.58 | 0.0009 | **1.12** [1.120, 1.124] |
-
----
-
-## 📜 Citation
-
-If you use this benchmark, code, or evaluation protocol in your research, please cite:
-
-```bibtex
-@article{fahd2026catastrophic,
-  title   = {Catastrophic Fragmentation: A Large-Scale Cross-Domain Benchmark of Tokenization Inefficiency in Frontier Large Language Models: A Case Study on Bengali},
-  author  = {Anonymous},
-  journal = {Neural Computing and Applications},
-  year    = {2026},
-  publisher = {Springer Nature}
-}
 ```
 
 ---
